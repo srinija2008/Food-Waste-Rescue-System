@@ -1,0 +1,29 @@
+
+name: Food Waste Rescue System
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  compile-java:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Compile Java files
+        run: |
+          mkdir -p out
+          javac -d out *.java
+
+      - name: Show success message
+        run: echo "Java compilation completed successfully!"
