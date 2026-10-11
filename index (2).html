@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Waste Rescue System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #243024;
+            background: #f0f8f0;
+        }
+
+        header {
+            padding: 28px 16px;
+            text-align: center;
+            color: white;
+            background: #238636;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        main {
+            width: min(92%, 680px);
+            margin: 32px auto;
+        }
+
+        .panel {
+            padding: 24px;
+            margin-bottom: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #1f6f32;
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 6px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #c8d5c8;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            color: white;
+            background: #238636;
+            border: 0;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #19692a;
+        }
+
+        #donations {
+            padding-left: 22px;
+        }
+
+        #donations li {
+            margin: 12px 0;
+            padding: 12px;
+            overflow-wrap: anywhere;
+            background: #f0f8f0;
+            border-radius: 6px;
+        }
+
+        .note {
+            color: #5c6b5c;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .empty {
+            color: #647064;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Food Waste Rescue System</h1>
+        <p>Save food. Help people. Reduce waste.</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>Register a Food Donation</h2>
+            <form id="donationForm">
+                <label for="donor">Donor Name</label>
+                <input id="donor" name="donor" placeholder="Enter donor name" required>
+
+                <label for="food">Food Items</label>
+                <input id="food" name="food" placeholder="Enter food items" required>
+
+                <label for="quantity">Quantity</label>
+                <input id="quantity" name="quantity" placeholder="e.g. 10 meals or 5 kg" required>
+
+                <label for="location">Pickup Location</label>
+                <input id="location" name="location" placeholder="Enter pickup location" required>
+
+                <button type="submit">Submit Donation</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Donation Entries</h2>
+            <p class="note">Entries added here are stored only in this page while it remains open. They are not sent to a server or shared with other visitors.</p>
+            <p id="emptyMessage" class="empty">No donations added yet.</p>
+            <ul id="donations" aria-live="polite"></ul>
+        </section>
+    </main>
+
+    <script>
+        const donationForm = document.getElementById("donationForm");
+        const donationsList = document.getElementById("donations");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        donationForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const donor = document.getElementById("donor").value.trim();
+            const food = document.getElementById("food").value.trim();
+            const quantity = document.getElementById("quantity").value.trim();
+            const location = document.getElementById("location").value.trim();
+
+            if (!donor || !food || !quantity || !location) {
+                return;
+            }
+
+            const item = document.createElement("li");
+            item.textContent = donor + " donated " + food + " (" +
+                quantity + ") — Pickup: " + location;
+
+            donationsList.appendChild(item);
+            emptyMessage.hidden = true;
+            donationForm.reset();
+        });
+    </script>
+</body>
+</html>
