@@ -1,0 +1,16 @@
+
+name: Food Waste Rescue System
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  check-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get project code
+        uses: actions/checkout@v4
+
+      - name: Show project files
+        run: ls -la
